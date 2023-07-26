@@ -31,14 +31,14 @@ public class QuestionController {
         this.attemptService = attemptService;
     }
 
-    @GetMapping("/getQuestion")
-    public QuestionArrayDto getQs(@RequestBody TeamsDto teamsDto){
-        if (memo.exists(teamsDto.getTeamName())){
-            return  memo.getAttemptInstance(teamsDto.getTeamName()).getQArray();
+    @GetMapping("/getQuestion/{teamName}")
+    public QuestionArrayDto getQs(@PathVariable String teamName){
+        if (memo.exists(teamName)){
+            return  memo.getAttemptInstance(teamName).getQArray();
         }else{
-            Teams team = teamService.getByteamName(teamsDto.getTeamName());
+            Teams team = teamService.getByteamName(teamName);
             Attempt attempt;
-            if (!attemptService.existsByteamName(teamsDto.getTeamName())){
+            if (!attemptService.existsByteamName(teamName)){
                 attempt = new Attempt();
                 int rand1 = randomNumberGenerator.getRandomNumber();
                 attempt.setTask1(questionService.getByTypeAndNumber(1, rand1));
@@ -53,7 +53,7 @@ public class QuestionController {
                 attempt.setTeam(team);
                 attemptService.saveAttempt(attempt);
             }
-            attempt = attemptService.getAttemptByteamName(teamsDto.getTeamName());
+            attempt = attemptService.getAttemptByteamName(teamName);
             AttemptInstance attemptInstance = new AttemptInstance(team, attempt, "!!!");
             memo.putAttemptInstance(team.getTeamName(), attemptInstance);
             return  attemptInstance.getQArray();
