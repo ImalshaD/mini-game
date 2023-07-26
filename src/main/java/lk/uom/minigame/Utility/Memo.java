@@ -61,7 +61,7 @@ public class Memo {
             leaderBoardDto.setCalcMean(weightedMark);
             x.add(leaderBoardDto);
         }
-        Comparator<LeaderBoardDto> nameComparator = Comparator.comparing(LeaderBoardDto::getCalcMean);
+        Comparator<LeaderBoardDto> nameComparator = Comparator.comparing(LeaderBoardDto::getCalcMean).reversed();
         Collections.sort(x,nameComparator);
         return x;
 
