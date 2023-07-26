@@ -34,6 +34,10 @@ public class TeamController {
 
     @PostMapping("/saveTeam")
     public ResponseDto<TeamsDto> saveTeam(@RequestBody TeamsDto teamsDto, HttpServletRequest request){
+        if (teamsDto.getTeamName()==null){
+            return null;
+        }
+        System.out.println("Saving team" + teamsDto.getTeamName());
         if (teamService.existsByTeamName(teamsDto.getTeamName())){
             Teams team = teamService.getByteamName(teamsDto.getTeamName());
             teamsDto.setId(team.getId());
@@ -61,6 +65,9 @@ public class TeamController {
                     attemptService.saveAttempt(attempt);
                 }
                 attempt = attemptService.getAttemptByteamName(teamsDto.getTeamName());
+                attempt.startAttempt();
+                System.out.println("Starting attempt" + teamsDto.getTeamName());
+                attemptService.saveAttempt(attempt);
                 AttemptInstance attemptInstance = new AttemptInstance(team, attempt, "!!!");
                 memo.putAttemptInstance(team.getTeamName(), attemptInstance);
             }

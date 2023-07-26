@@ -33,6 +33,7 @@ public class QuestionController {
 
     @GetMapping("/getQuestion/{teamName}")
     public QuestionArrayDto getQs(@PathVariable String teamName){
+        System.out.println("Getiing questions "+teamName);
         if (memo.exists(teamName)){
             return  memo.getAttemptInstance(teamName).getQArray();
         }else{
