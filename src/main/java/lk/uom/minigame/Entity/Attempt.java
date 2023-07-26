@@ -43,6 +43,9 @@ public class Attempt {
         }
         this.endTime = LocalDateTime.now();
         this.duration = Duration.between(this.startTime,this.endTime).getSeconds();
+        if (duration>1800){
+            duration = 1800;
+        }
         this.score = lastCompletedTask*20;
         return this.score;
     }

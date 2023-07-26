@@ -1,6 +1,7 @@
 package lk.uom.minigame.Utility;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lk.uom.minigame.DTO.LeaderBoardDto;
 import lk.uom.minigame.Entity.Attempt;
 import lk.uom.minigame.controllers.TeamController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,26 +47,25 @@ public class Memo {
         System.gc();
     }
 
-    public ArrayList<Attempt> getOrder(){
-        ArrayList<Attempt> x = new ArrayList<>();
+    public ArrayList<LeaderBoardDto> getOrder(){
+        ArrayList<LeaderBoardDto> x = new ArrayList<>();
         for (AttemptInstance a : dict.values()){
-            x.add(a.getAttempt());
-        }
-        Collections.sort(x, new Comparator<Attempt>() {
-            @Override
-            public int compare(Attempt attempt1, Attempt attempt2) {
-                // Sort by score in descending order
-                int scoreComparison = Float.compare(attempt2.getScore(), attempt1.getScore());
-
-                // If scores are equal, sort by duration in ascending order
-                if (scoreComparison == 0) {
-                    return Long.compare(attempt1.getDuration(), attempt2.getDuration());
-                }
-
-                return scoreComparison;
+            Attempt attempt = a.getAttempt();
+            LeaderBoardDto leaderBoardDto = new LeaderBoardDto();
+            leaderBoardDto.setTeamName(attempt.getTeam().getTeamName());
+            leaderBoardDto.setScore(attempt.getScore());
+            leaderBoardDto.setDuration(attempt.getDuration());
+            float weightedMark = attempt.getScore()-(attempt.getDuration()/1800)*40;
+            if (weightedMark<0){
+                weightedMark =0;
             }
-        });
+            leaderBoardDto.setCalcMean(weightedMark);
+            x.add(leaderBoardDto);
+        }
+        Comparator<LeaderBoardDto> nameComparator = Comparator.comparing(LeaderBoardDto::getCalcMean);
+        Collections.sort(x,nameComparator);
         return x;
+
     }
 }
 
