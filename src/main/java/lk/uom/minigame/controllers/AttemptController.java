@@ -6,10 +6,7 @@ import lk.uom.minigame.Utility.AttemptInstance;
 import lk.uom.minigame.Utility.Memo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "attempt")
@@ -24,14 +21,14 @@ public class AttemptController {
         this.memo = Memo.getInstance();
     }
     @PutMapping("/startAttempt")
-    public void startAttempt(TeamsDto teamsDto){
+    public void startAttempt(@RequestBody TeamsDto teamsDto){
         AttemptInstance x = memo.getAttemptInstance(teamsDto.getTeamName());
         x.startAttempt();
         attemptService.saveAttempt(x.getAttempt());
 
     }
     @PutMapping("/endAttempt")
-    public float endAttempt(TeamsDto teamsDto){
+    public float endAttempt(@RequestBody TeamsDto teamsDto){
         AttemptInstance x = memo.getAttemptInstance(teamsDto.getTeamName());
         float score = x.endAttempt();
         attemptService.saveAttempt(x.getAttempt());

@@ -28,6 +28,8 @@ public class Memo {
     }
     public AttemptInstance getAttemptInstance(String teamName){
 
+        System.out.println(dict.containsKey(teamName));
+        System.out.println(teamName);
         if (!(dict.containsKey(teamName))) {
             return null;
         }

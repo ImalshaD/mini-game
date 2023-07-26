@@ -54,12 +54,12 @@ public class AttemptInstance {
         this.attempt.setTask5(generateQuestion(5));
     }
     public void startAttempt(){
-        if (attempt.getStartTime() != null) {
+        if (attempt.getStartTime() == null) {
             this.attempt.startAttempt();
         }
     }
     public float endAttempt(){
-        if (attempt.getEndTime() != null) {
+        if (attempt.getEndTime() == null) {
             return attempt.endAttempt();
         }else{
             return attempt.getScore();
@@ -98,6 +98,9 @@ public class AttemptInstance {
     }
 
     public long getRemainingTime(){
+        if (attempt.getEndTime()!=null){
+            return 0;
+        }
         LocalTime now = LocalTime.now();
         LocalDateTime startTime = attempt.getStartTime();
         if (startTime == null){
