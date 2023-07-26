@@ -70,8 +70,8 @@ public class TeamController {
         responseDto.setData(teamsDto);
         return  responseDto;
     }
-    @GetMapping("/existsByteamName")
-    public boolean existbyTeamName(@RequestBody TeamsDto teamsDto){
-        return teamService.existsByTeamName(teamsDto.getTeamName());
+    @GetMapping("/existsByteamName/{teamName}")
+    public boolean existbyTeamName(@PathVariable String teamName){
+        return teamService.existsByTeamName(teamName);
     }
 }
