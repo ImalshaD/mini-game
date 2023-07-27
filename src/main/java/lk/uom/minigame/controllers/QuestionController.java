@@ -37,6 +37,9 @@ public class QuestionController {
         if (memo.exists(teamName)){
             return  memo.getAttemptInstance(teamName).getQArray();
         }else{
+            if (!teamService.existsByTeamName(teamName)){
+                return new QuestionArrayDto();
+            }
             Teams team = teamService.getByteamName(teamName);
             Attempt attempt;
             if (!attemptService.existsByteamName(teamName)){
