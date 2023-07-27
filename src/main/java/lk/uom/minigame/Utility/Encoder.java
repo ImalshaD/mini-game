@@ -8,7 +8,7 @@ public class Encoder {
         for (char ch : input.toCharArray()) {
             char A = 'A';
             // Add the shift value to the ASCII value of the character
-            char encodedChar = (char) ((ch + shift-A)%27+A);
+            char encodedChar = (char) ((ch + shift-A)%26+A);
             encodedString.append(encodedChar);
         }
 

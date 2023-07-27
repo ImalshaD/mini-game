@@ -90,7 +90,7 @@ public class AttemptInstance {
         }else if (lastCompletedQuestion==4) {
             currentQuestion = attempt.getTask5();
         }else if (lastCompletedQuestion==5) {
-            String description = "ABCDE translates to "+Encoder.encoded("ABCDE",rand)+"Your revealed sequence is the translation of ?";
+            String description = "ABCDE translates to "+Encoder.encoded("ABCDE",rand)+"Your revealed sequence is translated to ?";
             return new QuestionDto(0,description,null,getDecodedString(),null);
         }
         return new QuestionDto(currentQuestion.getId(), currentQuestion.getDescription(),currentQuestion.getURL()
