@@ -121,7 +121,7 @@ public class AttemptInstance {
         questionDtos.add(modelMapper.map(attempt.getTask3(),QuestionDto.class));
         questionDtos.add(modelMapper.map(attempt.getTask4(),QuestionDto.class));
         questionDtos.add(modelMapper.map(attempt.getTask5(),QuestionDto.class));
-        String description = "ABCDEF translates to "+Encoder.encoded("ABCDE",rand)+" Your revelaed sequence trnaslates to:";
+        String description = "ABCDE translates to "+Encoder.encoded("ABCDE",rand)+" Your revelaed sequence is the translation of ?:";
         questionDtos.add(new QuestionDto(0,description,null,getEncodedString(),null));
         return new QuestionArrayDto(getRemainingTime(),questionDtos);
     }

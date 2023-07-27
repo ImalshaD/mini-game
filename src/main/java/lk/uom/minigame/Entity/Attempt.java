@@ -59,5 +59,7 @@ public class Attempt {
 
     public void finishCurrentTask(){
         this.lastCompletedTask++;
+        this.score = lastCompletedTask*20;
+        this.duration = Duration.between(LocalDateTime.now(),startTime).getSeconds();
     }
 }
