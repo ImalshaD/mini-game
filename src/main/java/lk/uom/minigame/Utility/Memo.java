@@ -54,7 +54,8 @@ public class Memo {
             leaderBoardDto.setTeamName(attempt.getTeam().getTeamName());
             leaderBoardDto.setScore(attempt.getScore());
             leaderBoardDto.setDuration(attempt.getDuration());
-            float weightedMark = attempt.getScore()-(attempt.getDuration()/1800)*40;
+            float xx = (float) attempt.getDuration()/1800;
+            float weightedMark = attempt.getScore()-(xx)*40;
             if (weightedMark<0){
                 weightedMark =0;
             }
