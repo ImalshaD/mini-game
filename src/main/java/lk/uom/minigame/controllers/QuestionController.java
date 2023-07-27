@@ -15,6 +15,8 @@ import lk.uom.minigame.Utility.RandomNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping(value = "question")
 @CrossOrigin
@@ -38,7 +40,20 @@ public class QuestionController {
             return  memo.getAttemptInstance(teamName).getQArray();
         }else{
             if (!teamService.existsByTeamName(teamName)){
-                return new QuestionArrayDto();
+                ArrayList<QuestionDto> arrayList = new ArrayList<>();
+                QuestionDto q1 = new QuestionDto(1,"dummy","","Not allowed","A");
+                QuestionDto q2 = new QuestionDto(1,"dummy","","Not allowed","A");
+                QuestionDto q3 = new QuestionDto(1,"dummy","","Not allowed","A");
+                QuestionDto q4 = new QuestionDto(1,"dummy","","Not allowed","A");
+                QuestionDto q5 = new QuestionDto(1,"dummy","","Not allowed","A");
+                QuestionDto q6 = new QuestionDto(1,"dummy","","Not allowed","A");
+                arrayList.add(q1);
+                arrayList.add(q2);
+                arrayList.add(q3);
+                arrayList.add(q4);
+                arrayList.add(q5);
+                arrayList.add(q6);
+                return new QuestionArrayDto(1800,arrayList);
             }
             Teams team = teamService.getByteamName(teamName);
             Attempt attempt;
